@@ -38,7 +38,7 @@ def choose():
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
-        show_table()
+        show_table(data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "2":
         add()
     elif option == "3":
@@ -59,15 +59,14 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
+    title_list = ["id", "name", "manufacturer", "purchase date", "durability"]
+    ui.print_table(table, title_list)
 
-    # your code
+    # Ask a new record as an input from the user than add it to @table, than return @table
+    #
+    # @table: list of lists
 
-    pass
 
-
-# Ask a new record as an input from the user than add it to @table, than return @table
-#
-# @table: list of lists
 def add(table):
 
     ui.get_inputs()
