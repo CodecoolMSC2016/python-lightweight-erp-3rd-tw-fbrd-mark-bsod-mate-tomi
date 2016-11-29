@@ -42,7 +42,7 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("selling/sellings.csv"))
     elif option == "2":
-        add()
+        add(data_manager.get_table_from_file("selling/sellings.csv"))
     elif option == "3":
         remove()
     elif option == "4":
@@ -65,20 +65,14 @@ def show_table(table):
     ui.print_table(table, title_list)
 
 
-    # your code
-
-    pass
-
-
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
 def add(table):
+    structure_elements = common.get_selling_structure_elements()
+    table.append(ui.get_inputs(structure_elements, ""))
+    data_manager.write_table_to_file("selling/sellingstest.csv", table)
 
-
-    # your code
-
-    return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
