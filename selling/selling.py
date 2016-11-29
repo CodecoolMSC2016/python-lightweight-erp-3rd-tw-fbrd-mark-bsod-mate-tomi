@@ -27,9 +27,14 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    # you code
+    menu_elemnets = ["Show_table",
+                     "Add",
+                     "Remove",
+                     "Update",
+                     "Get_lowest_price_item_id",
+                     "Get_items_sold_between"]
+    ui.print_menu("Selling", menu_elemnets, "Back to main menu")
 
-    pass
 
 
 # print the default table of records from the file
@@ -46,6 +51,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
+
 
     # your code
 
