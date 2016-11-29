@@ -27,20 +27,43 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    menu_elemnets = ["Show_table",
+    menu_elements = ["Show_table",
                      "Add",
                      "Remove",
                      "Update",
-                     "Get_lowest_price_item_id",
-                     "Get_items_sold_between"]
-    ui.print_menu("Selling", menu_elemnets, "Back to main menu")
+                     "Lowest price item",
+                     "Items sold between"]
+    ui.print_menu("Selling", menu_elements, "Back to main menu")
+    choose()
 
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file("selling/sellings.csv"))
+    elif option == "2":
+        add()
+    elif option == "3":
+        remove()
+    elif option == "4":
+        update()
+    elif option == "5":
+        get_lowest_price_item_id()
+    elif option == "6":
+        get_items_sold_between()
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
 def show_table(table):
+    title_list = ["id", "title", "price", "month", "day", "year"]
+    ui.print_table(table, title_list)
+
 
     # your code
 
