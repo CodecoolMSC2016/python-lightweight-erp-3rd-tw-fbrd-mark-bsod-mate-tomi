@@ -18,7 +18,7 @@ def print_table(table, title_list):
         print()
 
     for i in range(0, len(table)):
-        print(i + "    ", end="")
+        print(str(i) + "    ", end="")
         for elements in table[i]:
             print(elements + "    ", end="")
         print()
@@ -54,8 +54,9 @@ def print_menu(title, list_options, exit_message):
 
     print(title + ":")
 
-    for i in range(0, len(list_options) + 1):
-        print("(" + i + 1 + ") " + list_options[i])
+    for i in range(0, len(list_options)):
+        menu_index = i + 1
+        print("(" + str(menu_index) + ") " + list_options[i])
 
     print("(0) " + exit_message)
 
