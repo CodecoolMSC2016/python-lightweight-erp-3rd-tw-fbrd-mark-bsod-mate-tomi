@@ -21,8 +21,6 @@ data_manager = SourceFileLoader(
 common = SourceFileLoader(
     "common", current_file_path + "/../common.py").load_module()
 
-CSV_FILE_PATH = "accounting/items.csv"
-
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
@@ -36,23 +34,25 @@ def start_module():
     choose()
 
 
+def read_file(file_name="accounting/items.csv"):
+    return data_manager.get_table_from_file(file_name)
+
+
 def choose():
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
-        show_table(data_manager.get_table_from_file(CSV_FILE_PATH))
+        show_table(read_file())
     elif option == "2":
-        add(data_manager.get_table_from_file(CSV_FILE_PATH))
+        add(read_file())
     elif option == "3":
-        remove(data_manager.get_table_from_file(CSV_FILE_PATH, 1))
+        remove(read_file(), 1)
     elif option == "4":
-        update(data_manager.get_table_from_file(CSV_FILE_PATH, 1))
+        update(read_file(), 1)
     elif option == "5":
-        which_year_max(data_manager.get_table_from_file(
-            CSV_FILE_PATH))
+        which_year_max(read_file())
     elif option == "6":
-        avg_amount(data_manager.get_table_from_file(
-            CSV_FILE_PATH, 2000))
+        avg_amount(read_file(), 2000)
     elif option == "0":
         pass
     else:
