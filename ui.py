@@ -18,7 +18,6 @@ def print_table(table, title_list):
     print()
 
     for i in range(0, len(table)):
-        print(str(i) + "    ", end="")
         for elements in table[i]:
             print(elements + "    ", end="")
         print()
@@ -74,7 +73,10 @@ def get_inputs(list_labels, title):
     print(title)
 
     for labels in list_labels:
-        inputs.append(input(labels + ": "))
+        if (labels[-1] == " " and labels[-2] == ":"):
+            inputs.append(input(labels))
+        else:
+            inputs.append(input(labels + ": "))
 
     return inputs
 
