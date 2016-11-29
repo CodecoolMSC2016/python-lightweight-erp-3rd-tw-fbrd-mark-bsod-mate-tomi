@@ -40,7 +40,7 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "2":
-        add()
+        add(data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "3":
         remove()
     elif option == "4":
@@ -59,19 +59,17 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    title_list = ["id", "name", "manufacturer", "purchase date", "durability"]
-    ui.print_table(table, title_list)
-
-    # Ask a new record as an input from the user than add it to @table, than return @table
-    #
-    # @table: list of lists
+    ui.print_table(table, common.get_tool_manager_structure_elements())
 
 
+# Ask a new record as an input from the user than add it to @table, than return @table
+#
+# @table: list of lists
 def add(table):
+    structure_elements = common.get_tool_manager_structure_elements()
+    table.append(ui.get_inputs(structure_elements, ""))
 
-    ui.get_inputs()
-
-    return table
+    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
 
 
 # Remove the record having the id @id_ from the @list, than return @table
