@@ -43,7 +43,7 @@ def choose():
         add(data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "3":
         remove(data_manager.get_table_from_file(
-            "tool_manager/tools.csv"), "jH34Ju#&")
+            "tool_manager/tools.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "4":
         update()
     elif option == "5":
