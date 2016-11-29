@@ -42,7 +42,8 @@ def choose():
     elif option == "2":
         add(data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "3":
-        remove()
+        remove(data_manager.get_table_from_file(
+            "tool_manager/tools.csv"), "jH34Ju#&")
     elif option == "4":
         update()
     elif option == "5":
@@ -77,9 +78,15 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    structure_elements = common.get_tool_manager_structure_elements()
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_):
+            table.remove(table[i])
+            break
 
+    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
     return table
 
 
