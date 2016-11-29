@@ -34,7 +34,7 @@ def start_module():
     choose()
 
 
-def read_file(file_name="accounting/items.csv"):
+def read_file(file_name="accounting/items_test.csv"):
     return data_manager.get_table_from_file(file_name)
 
 
