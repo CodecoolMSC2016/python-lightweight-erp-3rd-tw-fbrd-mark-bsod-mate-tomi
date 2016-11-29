@@ -27,9 +27,32 @@ common = SourceFileLoader(
 #
 def start_module():
 
-    # you code
+    menu_elements = ["Show table", "Add", "Remove", "Update",
+                     "Available tools", "Avg Durability by manufacturer"]
 
-    pass
+    ui.print_menu("Tool manager", menu_elements, "Back to main menu")
+    choose()
+
+
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table()
+    elif option == "2":
+        add()
+    elif option == "3":
+        remove()
+    elif option == "4":
+        update()
+    elif option == "5":
+        get_available_tools()
+    elif option == "6":
+        get_average_durability_by_manufacturers()
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
 
 # print the default table of records from the file
@@ -51,12 +74,11 @@ def add(table):
 
     return table
 
+
 # Remove the record having the id @id_ from the @list, than return @table
 #
 # @table: list of lists
 # @id_: string
-
-
 def remove(table, id_):
 
     # your code
