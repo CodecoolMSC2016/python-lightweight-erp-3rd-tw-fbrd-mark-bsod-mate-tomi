@@ -17,14 +17,32 @@ data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_ma
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
-
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    menu_elements=["Show Table","Add","Remove","Update","Get longest name","Get subscribed ID"]
+    ui.print_menu("Customer Relationship Management", menu_elements, "Back to main menu")
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file("crm/customers.csv"))
+    elif option == "2":
+        add(data_manager.get_table_from_file(CSV_FILE_PATH))
+    elif option == "3":
+        remove()
+    elif option == "4":
+        update()
+    elif option == "5":
+        get_longest_name_id()
+    elif option == "6":
+        get_subscribed_emails()
+    elif option == "0":
+         pass
+    else:
+        raise KeyError("There is no such option.")
 
-    # you code
 
     pass
 
@@ -33,9 +51,8 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
-
+    title_list = ["id", "name", "email", "subscribed",]
+    ui.print_table(table, title_list)
     pass
 
 
@@ -79,6 +96,7 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
+
 
     # your code
 
