@@ -15,7 +15,7 @@ def print_table(table, title_list):
 
     for title in title_list:
         print(title + "    ", end="")
-        print()
+    print()
 
     for i in range(0, len(table)):
         print(str(i) + "    ", end="")
