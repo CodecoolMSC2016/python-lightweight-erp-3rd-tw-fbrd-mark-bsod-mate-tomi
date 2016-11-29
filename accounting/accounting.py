@@ -21,19 +21,48 @@ data_manager = SourceFileLoader(
 common = SourceFileLoader(
     "common", current_file_path + "/../common.py").load_module()
 
+CSV_FILE_PATH = "accounting/items.csv"
 
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
+
+
 def start_module():
+    options = ["Show table", "Add entry", "Remove entry", "Update entry",
+               "Get most profitable year", "Get average profit/item"]
+    ui.print_menu("Accounting", options, "Back to main menu")
+    choose()
 
-    pass
 
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file(CSV_FILE_PATH))
+    elif option == "2":
+        add(data_manager.get_table_from_file(CSV_FILE_PATH))
+    elif option == "3":
+        remove(data_manager.get_table_from_file(CSV_FILE_PATH, 1))
+    elif option == "4":
+        update(data_manager.get_table_from_file(CSV_FILE_PATH, 1))
+    elif option == "5":
+        which_year_max(data_manager.get_table_from_file(
+            CSV_FILE_PATH))
+    elif option == "6":
+        avg_amount(data_manager.get_table_from_file(
+            CSV_FILE_PATH, 2000))
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
     ui.print_table(table, ["id", "month", "day", "year", "type", "amount"])
 
