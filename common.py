@@ -10,8 +10,8 @@ def get_tool_manager_structure_elements():
 
 
 def get_selling_structure_elements():
-    title_list = ["id", "title", "price", "month", "day", "year"]
-    return title_list
+    structure_elements = ["id", "title", "price", "month", "day", "year"]
+    return structure_elements
 
 
 def get_accounting_structure_elements():

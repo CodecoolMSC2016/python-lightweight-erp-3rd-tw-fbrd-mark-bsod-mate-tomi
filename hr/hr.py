@@ -22,11 +22,29 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    list_functions = ["Show table", "Add", "Remove", "Update", "Available tools", "Average durability by manufacturers"]
+    ui.print_menu("Hr manager", menu_elements, "Back to main menu")
+    choose()
 
-    # you code
-
-    pass
-
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file("hr/persons.csv"))
+    elif option == "2":
+        add()
+    elif option == "3":
+        remove()
+    elif option == "4":
+        update()
+    elif option == "5":
+        get_available_tools()
+    elif option == "6":
+        get_average_durability_by_manufacturers()
+    elif option == "0":
+        sys.exit(0)
+    else:
+        raise KeyError("There is no such option.")
 
 # print the default table of records from the file
 #
