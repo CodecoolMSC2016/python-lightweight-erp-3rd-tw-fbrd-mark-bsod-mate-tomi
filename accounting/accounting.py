@@ -64,7 +64,7 @@ def choose():
 
 
 def show_table(table):
-    ui.print_table(table, ["id", "month", "day", "year", "type", "amount"])
+    ui.print_table(table, common.get_accounting_structure_elements())
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
