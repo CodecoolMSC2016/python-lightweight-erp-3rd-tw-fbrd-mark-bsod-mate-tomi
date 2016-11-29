@@ -22,9 +22,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    title = "Hr manager"
     list_functions = ["Show table", "Add", "Remove", "Update", "Available tools", "Average durability by manufacturers"]
-    ui.print_menu(menu_elements, "Back to main menu")
+    ui.print_menu("Hr manager", menu_elements, "Back to main menu")
     choose()
 
 def choose():
