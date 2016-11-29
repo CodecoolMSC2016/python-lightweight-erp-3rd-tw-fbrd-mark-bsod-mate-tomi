@@ -8,6 +8,11 @@ def get_tool_manager_structure_elements():
                           "manufacturer", "purchase date", "durability"]
     return structure_elements
 
+def get_selling_structure_elements():
+    title_list = ["id", "title", "price", "month", "day", "year"]
+    return title_list
+
+
 
 # generate and return a unique and random string
 # other expectation:
