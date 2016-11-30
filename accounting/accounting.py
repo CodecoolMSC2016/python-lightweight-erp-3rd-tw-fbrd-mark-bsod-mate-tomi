@@ -54,10 +54,11 @@ def choose():
         update(read_file(), ui.get_inputs(
             ["Enter ID for update"], "Accounting - Update"))
     elif option == "5":
-        which_year_max(read_file())
+        ui.print_result(which_year_max(read_file()),
+                        "We had the highest profit in:")
     elif option == "6":
-        avg_amount(read_file(), ui.get_inputs(
-            ["Enter a year"], "Accounting - Average profit/item"))
+        ui.print_result(avg_amount(read_file(), ui.get_inputs(
+            ["Enter a year"], "Accounting - Average profit/item")), "Average profit/item:")
     elif option == "0":
         pass
     else:
