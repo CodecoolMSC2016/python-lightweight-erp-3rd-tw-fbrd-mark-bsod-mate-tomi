@@ -80,6 +80,7 @@ def add(table):
     table.append(new_entry)
 
     data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
@@ -95,6 +96,7 @@ def remove(table, id_):
             break
 
     data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -115,6 +117,7 @@ def update(table, id_):
             break
 
     data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    return table
 
 
 # special functions:
@@ -132,7 +135,10 @@ def get_available_tools(table):
         if int(tool[index_durability]) > (2016 - int(tool[index_purchase_date])):
             not_exceeded_durability_items.append(tool)
 
+    not_exceeded_durability_items.map(int, not_exceeded_durability_items[-2::])
+
     ui.print_result(not_exceeded_durability_items, "Not exceeded items")
+    return not_exceeded_durability_items
 
 
 # the question: What are the average durability time for each manufacturer?
@@ -161,3 +167,5 @@ def get_average_durability_by_manufacturers(table):
 
     ui.print_result(dict_avg_dur_by_manufacturer,
                     "Avarage durability by Manufacturers")
+
+    return dict_avg_dur_by_manufacturer
