@@ -88,7 +88,7 @@ def remove(table, id_):
     index_id = 0
 
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_):
+        if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             break
 
@@ -102,11 +102,13 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
     index_id = 0
+    structure_elements = common.get_tool_manager_structure_elements()
 
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_):
+        if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, ID)
             table.insert(i, updated_entry)
             break
 
@@ -118,19 +120,22 @@ def update(table, id_):
 
 # the question: Which items has not yet exceeded their durability ?
 # return type: list of lists (the inner list contains the whole row with their actual data types)
-#
 # @table: list of lists
+'''
 def get_available_tools(table):
-
-    # your code
+    index_durability = 4
+    for tool in table:
+        if tool[index_durability]
 
     pass
-
+'''
 
 # the question: What are the average durability time for each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [avg] }
 #
 # @table: list of lists
+
+
 def get_average_durability_by_manufacturers(table):
 
     # your code
