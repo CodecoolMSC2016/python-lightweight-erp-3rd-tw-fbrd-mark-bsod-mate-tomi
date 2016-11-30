@@ -60,19 +60,24 @@ def show_table(table):
 # @table: list of lists
 def add(table):
     title_list = ["ID", "Name", "Date of birth"]
+    ID = common.generate_random(table)
     new_record = ui.get_inputs(title_list, " ")
-    # your code
+    table.append(new_record)
 
-    return table
-
+#    return table
+    data_manager.writ_table_to_file("hr/export_hr.csv", table)
 
 # Remove the record having the id @id_ from the @list, than return @table
 #
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
+    for i in range(len(table)):
+        if (table[i][0] == id_[0]):
+            table.remove(table[i])
+#            del table[i]
+            break
+    data_manager.write_table_to_file("hr/export_hr.csv", table)
 
     return table
 
