@@ -51,7 +51,8 @@ def choose():
         get_available_tools(
             data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "6":
-        get_average_durability_by_manufacturers()
+        get_average_durability_by_manufacturers(
+            data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "0":
         pass
     else:
@@ -125,22 +126,38 @@ def update(table, id_):
 def get_available_tools(table):
     index_durability = 4
     index_purchase_date = 3
-    exceeded_durability_items = []
+    not_exceeded_durability_items = []
 
     for tool in table:
-        if int(tool[index_durability]) < (2016 - int(tool[index_purchase_date])):
-            exceeded_durability_items.append(tool)
+        if int(tool[index_durability]) > (2016 - int(tool[index_purchase_date])):
+            not_exceeded_durability_items.append(tool)
 
-    return exceeded_durability_items
+    ui.print_result(not_exceeded_durability_items, "Not exceeded items")
+
 
 # the question: What are the average durability time for each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [avg] }
 #
 # @table: list of lists
-
-
 def get_average_durability_by_manufacturers(table):
+    index_manufacturer = 2
+    index_durability = 4
+    dict_avg_dur_by_manufacturer = {}
+    dict_avg_counter = {}
 
-    # your code
+    for tool in table:
+        if tool[index_manufacturer] not in dict_avg_dur_by_manufacturer:
+            dict_avg_dur_by_manufacturer.update(
+                {tool[index_manufacturer]: int(tool[index_durability])})
 
-    pass
+            dict_avg_counter.update({tool[index_manufacturer]: 1})
+        else:
+            dict_avg_dur_by_manufacturer[
+                tool[index_manufacturer]] += int(tool[index_durability])
+            dict_avg_counter[tool[index_manufacturer]] += 1
+
+    for (k, v), (k2, v2) in zip(dict_avg_dur_by_manufacturer.items(), dict_avg_counter.items()):
+        dict_avg_dur_by_manufacturer[k] = v / v2
+
+    ui.print_result(dict_avg_dur_by_manufacturer,
+                    "Avarage durability by Manufacturers")
