@@ -132,7 +132,7 @@ def get_available_tools(table):
         if int(tool[index_durability]) > (2016 - int(tool[index_purchase_date])):
             not_exceeded_durability_items.append(tool)
 
-    ui.print_table(not_exceeded_durability_items, ["Not exceeded items"])
+    ui.print_result(not_exceeded_durability_items, "Not exceeded items")
 
 
 # the question: What are the average durability time for each manufacturer?
@@ -159,4 +159,5 @@ def get_average_durability_by_manufacturers(table):
     for (k, v), (k2, v2) in zip(dict_avg_dur_by_manufacturer.items(), dict_avg_counter.items()):
         dict_avg_dur_by_manufacturer[k] = v / v2
 
-    ui.print_result(dict_avg_dur_by_manufacturer)
+    ui.print_result(dict_avg_dur_by_manufacturer,
+                    "Avarage durability by Manufacturers")
