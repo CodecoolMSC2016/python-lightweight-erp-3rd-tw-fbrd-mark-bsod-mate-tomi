@@ -68,7 +68,13 @@ def show_table(table):
 # @table: list of lists
 def add(table):
     structure_elements = common.get_tool_manager_structure_elements()
-    table.append(ui.get_inputs(structure_elements, ""))
+
+    ID = common.generate_random(table)
+
+    new_entry = ui.get_inputs(structure_elements[1::], "")
+    new_entry.insert(0, ID)
+
+    table.append(new_entry)
 
     data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
 
@@ -78,7 +84,6 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    structure_elements = common.get_tool_manager_structure_elements()
     index_id = 0
 
     for i in range(0, len(table)):
