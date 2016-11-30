@@ -31,7 +31,18 @@ def print_table(table, title_list):
 # @label: string - label of the result
 def print_result(result, label):
 
-    print(label + ": " + result)
+    if type(result) is list:
+        print(label)
+        for elem in result:
+            print(elem)
+
+    elif type(result) is dict:
+        print(label)
+        for k, v in result.items():
+            print(k + ": " + str(v))
+
+    else:
+        print(label + ": " + result)
 
     pass
 
@@ -51,7 +62,7 @@ def print_result(result, label):
 # @exit_message: string - the last option with (0) (example: "Back to main menu")
 def print_menu(title, list_options, exit_message):
 
-    print(title + ":")
+    print("\n" + title + ":")
 
     for i in range(0, len(list_options)):
         menu_index = i + 1
