@@ -81,7 +81,7 @@ def add(table):
     new_entry.insert(0, ID)
     table.append(new_entry)
 
-    return table
+    data_manager.write_table_to_file("accounting/items_test.csv", table)
 
 
 # Remove the record having the id @id_ from the @list, than return @table
