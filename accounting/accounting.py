@@ -30,7 +30,7 @@ common = SourceFileLoader(
 def start_module():
     options = ["Show table", "Add entry", "Remove entry", "Update entry",
                "Get most profitable year", "Get average profit/item"]
-    ui.print_menu("Accounting", options, "Back to main menu")
+    ui.print_menu("\nAccounting", options, "Back to main menu")
     choose()
 
 
@@ -49,7 +49,8 @@ def choose():
         remove(read_file(), ui.get_inputs(
             ["Enter ID for removal"], "Accounting - Remove Entry"))
     elif option == "4":
-        update(read_file(), 1)
+        update(read_file(), ui.get_inputs(
+            ["Enter ID for update"], "Accounting - Update"))
     elif option == "5":
         which_year_max(read_file())
     elif option == "6":
@@ -105,10 +106,18 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    index_id = 0
+    structure_elements = common.get_accounting_structure_elements()
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, id_[index_id])
+            table.insert(i, updated_entry)
+            break
 
-    return table
+    data_manager.write_table_to_file("accounting/items_test.csv", table)
 
 
 # special functions:
