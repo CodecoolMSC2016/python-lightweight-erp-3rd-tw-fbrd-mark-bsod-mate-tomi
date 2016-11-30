@@ -102,20 +102,22 @@ def update(table, id_):
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
     data_manager.get_table_from_file("hr/persons.csv")
-    oldest = 9999999999
+    oldest = 999999
     for i in range(len(table)):
         if int(table[i][2]) < oldest:
             oldest = int(table[i][2])
     for i in table:
         if int(i[2]) == oldest:
             ui.print_result(i[1], "The oldest person is: ")
-#    pass
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
-###def get_persons_closest_to_average(table):
-
-    # your code
-
+def get_persons_closest_to_average(table):
+    average = 0
+    for item in table:
+        average += int(item[2])
+    average = average / len(table)
+#
+#
 #    pass
