@@ -82,4 +82,4 @@ def get_profit_of_year(table, year):
         elif int(entry[YEAR_INDEX]) == year and entry[TYPE_INDEX] == "out":
             yearly_profit -= int(entry[AMOUNT_INDEX])
 
-    print(yearly_profit)
+    return yearly_profit
