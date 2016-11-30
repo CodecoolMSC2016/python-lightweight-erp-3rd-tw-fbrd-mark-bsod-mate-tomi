@@ -47,7 +47,7 @@ def choose():
         add(read_file())
     elif option == "3":
         remove(read_file(), ui.get_inputs(
-            ["Enter ID for removal"], "Accounting - Remove Entry")[0])
+            ["Enter ID for removal"], "Accounting - Remove Entry"))
     elif option == "4":
         update(read_file(), 1)
     elif option == "5":
@@ -92,7 +92,7 @@ def remove(table, id_):
     index_id = 0
 
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_):
+        if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             break
 
