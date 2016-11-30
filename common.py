@@ -27,6 +27,12 @@ def get_accounting_structure_elements():
 # @table: list of list
 # @generated: string - generated random string (unique in the @table)
 def generate_random(table):
+    """Generates a random ID, until it creates such value,
+    which is not present in the list of list given in parameters
+
+    Arguments:
+    table - list of lists
+    """
     generated = ''
     ID = 0
 
