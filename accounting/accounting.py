@@ -21,6 +21,9 @@ data_manager = SourceFileLoader(
 common = SourceFileLoader(
     "common", current_file_path + "/../common.py").load_module()
 
+# used constants
+YEAR_INDEX = 3
+
 
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
@@ -51,9 +54,11 @@ def choose():
         update(read_file(), ui.get_inputs(
             ["Enter ID for update"], "Accounting - Update"))
     elif option == "5":
-        which_year_max(read_file())
+        ui.print_result(which_year_max(read_file()),
+                        "We had the highest profit in:")
     elif option == "6":
-        avg_amount(read_file(), 2000)
+        ui.print_result(avg_amount(read_file(), ui.get_inputs(
+            ["Enter a year"], "Accounting - Average profit/item")), "Average profit/item:")
     elif option == "0":
         pass
     else:
@@ -124,7 +129,6 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out)
 # return the answer (number)
 def which_year_max(table):
-    YEAR_INDEX = 3
     yearly_profits = []
     years_in_table = []
     index_max_profit = 0
@@ -147,7 +151,14 @@ def which_year_max(table):
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
+    given_year = int(year[0])
+    items_count_in_year = 0
+    sum_profits = 0
 
-    avg_per_item = 0
+    for entry in table:
+        if int(entry[YEAR_INDEX]) == given_year:
+            items_count_in_year += 1
 
-    return avg_per_item
+    sum_profits = common.get_profit_of_year(table, given_year)
+
+    return sum_profits / items_count_in_year

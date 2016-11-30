@@ -22,7 +22,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    list_functions = ["Show table", "Add", "Remove", "Update", "Available tools", "Average durability by manufacturers"]
+    list_functions = ["Show table", "Add", "Remove", "Update", "Get oldest person", "Get persons closest to average"]
     ui.print_menu("Hr manager", list_functions, "Back to main menu")
     choose()
 
@@ -32,11 +32,11 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "2":
-        add(data_manager.get_table_from_file("hr/persons.csv"))
+        data_manager.write_table_to_file("hr/export_hr.csv", add(data_manager.get_table_from_file("hr/persons.csv")))
     elif option == "3":
-        remove(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], ""))
+        data_manager.write_table_to_file("hr/export_hr.csv", remove(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "4":
-        update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], ""))
+        data_manager.write_table_to_file("hr/export_hr.csv", update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "5":
         get_available_tools(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "6":
@@ -50,37 +50,33 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    title_list = ["ID", "Name", "Date of birth"]
-    ui.print_table(data_manager.get_table_from_file("hr/persons.csv"), title_list)
+    structure_elements = common.get_hr_structure_elements()
+    ui.print_table(data_manager.get_table_from_file("hr/persons.csv"), structure_elements)
     start_module()
-#    pass
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
 def add(table):
-    title_list = ["ID", "Name", "Date of birth"]
+    structure_elements = common.get_hr_structure_elements()
     ID = common.generate_random(table)
-    new_record = ui.get_inputs(title_list, " ")
+    new_record = ui.get_inputs(structure_elements[1::], " ")
+    new_record.insert(0, ID)
     table.append(new_record)
 
-#    return table
-    data_manager.writ_table_to_file("hr/export_hr.csv", table)
-
+    return table
 # Remove the record having the id @id_ from the @list, than return @table
 #
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
     for i in range(len(table)):
-        if (table[i][0] == id_[0]):
+        if str(table[i][index_id]) == str(id_[index_id]):
             table.remove(table[i])
-#            del table[i]
             break
-    data_manager.write_table_to_file("hr/export_hr.csv", table)
 
     return table
-
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
@@ -88,11 +84,16 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    index_id = 0
+    structure_elements = common.get_hr_structure_elements()
+    for i in range(len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            update_entry = ui.get_inputs(structure_elements[1::], "")
+            update_entry.insert(0, id_[0])
+            table.insert(i, update_entry)
+            break
     return table
-
 
 # special functions:
 # ------------------
@@ -100,16 +101,23 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-
-    # your code
-
-    pass
+    data_manager.get_table_from_file("hr/persons.csv")
+    years = table[0][2]
+    oldest = table[0][1]
+    for i in range(len(table)):
+        if int(table[i][2]) < int(years):
+            table[i][2] = years
+            table[i][1] = oldest
+        elif int(table[i][2]) == int(years):
+            result = oldest.append(table[i][1])
+    return result
+#    pass
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
-def get_persons_closest_to_average(table):
+###def get_persons_closest_to_average(table):
 
     # your code
 
-    pass
+#    pass
