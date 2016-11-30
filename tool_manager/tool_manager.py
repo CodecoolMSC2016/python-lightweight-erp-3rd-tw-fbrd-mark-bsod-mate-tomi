@@ -45,7 +45,8 @@ def choose():
         remove(data_manager.get_table_from_file(
             "tool_manager/tools.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "4":
-        update()
+        update(data_manager.get_table_from_file(
+            "tool_manager/tools.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "5":
         get_available_tools()
     elif option == "6":
@@ -92,7 +93,6 @@ def remove(table, id_):
             break
 
     data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
-    return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -101,10 +101,16 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            table.insert(i, updated_entry)
+            break
 
-    return table
+    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
 
 
 # special functions:
