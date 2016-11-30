@@ -45,9 +45,9 @@ def choose():
         show_table(read_file())
     elif option == "2":
         add(read_file())
-
     elif option == "3":
-        remove(read_file(), 1)
+        remove(read_file(), ui.get_inputs(
+            ["Enter ID for removal"], "Accounting - Remove Entry")[0])
     elif option == "4":
         update(read_file(), 1)
     elif option == "5":
@@ -89,10 +89,14 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_):
+            table.remove(table[i])
+            break
 
-    return table
+    data_manager.write_table_to_file("accounting/items_test.csv", table)
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
