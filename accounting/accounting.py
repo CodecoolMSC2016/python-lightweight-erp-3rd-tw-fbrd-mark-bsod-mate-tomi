@@ -45,6 +45,7 @@ def choose():
         show_table(read_file())
     elif option == "2":
         add(read_file())
+
     elif option == "3":
         remove(read_file(), 1)
     elif option == "4":
@@ -71,8 +72,14 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
+    structure_elements = common.get_accounting_structure_elements()
+    ID = common.generate_random(table)
 
-    # your code
+    new_entry = ui.get_inputs(
+        structure_elements[1::], "Accounting - Add Entry")
+
+    new_entry.insert(0, ID)
+    table.append(new_entry)
 
     return table
 
