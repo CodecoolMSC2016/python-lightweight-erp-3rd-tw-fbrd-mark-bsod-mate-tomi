@@ -62,3 +62,24 @@ def generate_random(table):
         generated += uppercase[random.randint(0, len(uppercase) - 1)]
 
     return generated
+
+
+def get_profit_of_year(table, year):
+    """Calculates profit of all entries, which are matching with value given year parameter
+    Arguments:
+    table: list of lists
+    year: int
+    """
+    YEAR_INDEX = 3
+    TYPE_INDEX = 4
+    AMOUNT_INDEX = 5
+
+    yearly_profit = 0
+
+    for entry in table:
+        if int(entry[YEAR_INDEX]) == year and entry[TYPE_INDEX] == "in":
+            yearly_profit += int(entry[AMOUNT_INDEX])
+        elif int(entry[YEAR_INDEX]) == year and entry[TYPE_INDEX] == "out":
+            yearly_profit -= int(entry[AMOUNT_INDEX])
+
+    print(yearly_profit)
