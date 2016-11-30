@@ -50,9 +50,12 @@ def choose():
         update(data_manager.get_table_from_file(
             "selling/sellings.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "5":
-        get_lowest_price_item_id()
+        get_lowest_price_item_id(data_manager.get_table_from_file(
+            "selling/sellings.csv"))
     elif option == "6":
-        get_items_sold_between()
+        inputs = ui.get_inputs(["month_from", "day_from", "year_from", "month_to", "day_to", "year_to"], "Enter dates" )
+        get_items_sold_between(data_manager.get_table_from_file(
+            "selling/sellings.csv"),inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5])
     elif option == "0":
         pass
     else:
@@ -92,7 +95,7 @@ def remove(table, id_):
     index_id = 0
 
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_[0]):
+        if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             break
 
@@ -111,7 +114,7 @@ def update(table, id_):
     structure_elements = common.get_selling_structure_elements()
     ID = common.generate_random(table)
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_[0]):
+        if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             updated_entry = ui.get_inputs(structure_elements[1::], "")
             updated_entry.insert(0, ID)
@@ -131,16 +134,30 @@ def update(table, id_):
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
-
-    # your code
-
-    pass
+    lowest_price = 9999999999999999999
+    for i in range(0, len(table)):
+        if int(table[i][2]) < lowest_price:
+            lowest_price = int(table[i][2])
+    for i in table:
+        if int(i[2]) == lowest_price:
+            ui.print_result(i[0], "The id of item sold on lowest price")
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
+    filtered_table = []
+    for i in table:
+        if int(year_from) < int(i[5]) and int(year_to) > int(i[5]) \
+            and int(month_from) < int(i[3]) and int(month_to) > int(i[3]) \
+            and int(day_from) < int(i[4]) and int(day_to) > int(i[4]):
+            filtered_table.append(i)
 
-    # your code
+    ui.print_result(filtered_table, "items between dates")
+
+
+
+
+
 
     pass
