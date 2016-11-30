@@ -42,7 +42,7 @@ def print_result(result, label):
             print(k + ": " + str(v))
 
     else:
-        print(label + ": " + result)
+        print(label + ": " + str(result))
 
     pass
 
