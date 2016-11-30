@@ -23,7 +23,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
     list_functions = ["Show table", "Add", "Remove", "Update", "Available tools", "Average durability by manufacturers"]
-    ui.print_menu("Hr manager", menu_elements, "Back to main menu")
+    ui.print_menu("Hr manager", list_functions, "Back to main menu")
     choose()
 
 def choose():
@@ -32,15 +32,15 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "2":
-        add()
+        add(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "3":
-        remove()
+        remove(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], ""))
     elif option == "4":
-        update()
+        update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], ""))
     elif option == "5":
-        get_available_tools()
+        get_available_tools(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "6":
-        get_average_durability_by_manufacturers()
+        get_average_durability_by_manufacturers(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "0":
         sys.exit(0)
     else:
@@ -50,17 +50,17 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
-
-    pass
-
+    title_list = ["ID", "Name", "Date of birth"]
+    ui.print_table(data_manager.get_table_from_file("hr/persons.csv"), title_list)
+    start_module()
+#    pass
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
 def add(table):
-
+    title_list = ["ID", "Name", "Date of birth"]
+    new_record = ui.get_inputs(title_list, " ")
     # your code
 
     return table
