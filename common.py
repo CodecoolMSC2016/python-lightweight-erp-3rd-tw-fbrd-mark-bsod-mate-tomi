@@ -8,6 +8,9 @@ def get_tool_manager_structure_elements():
                           "manufacturer", "purchase date", "durability"]
     return structure_elements
 
+def get_hr_structure_elements():
+    structure_elements = ["ID", "Name", "Date of birth"]
+    return structure_elements
 
 def get_selling_structure_elements():
     structure_elements = ["id", "title", "price", "month", "day", "year"]
