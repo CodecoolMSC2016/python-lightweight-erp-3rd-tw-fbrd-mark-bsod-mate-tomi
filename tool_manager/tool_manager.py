@@ -48,7 +48,8 @@ def choose():
         update(data_manager.get_table_from_file(
             "tool_manager/tools.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "5":
-        get_available_tools()
+        get_available_tools(
+            data_manager.get_table_from_file("tool_manager/tools.csv"))
     elif option == "6":
         get_average_durability_by_manufacturers()
     elif option == "0":
@@ -121,14 +122,16 @@ def update(table, id_):
 # the question: Which items has not yet exceeded their durability ?
 # return type: list of lists (the inner list contains the whole row with their actual data types)
 # @table: list of lists
-'''
 def get_available_tools(table):
     index_durability = 4
-    for tool in table:
-        if tool[index_durability]
+    index_purchase_date = 3
+    exceeded_durability_items = []
 
-    pass
-'''
+    for tool in table:
+        if int(tool[index_durability]) < (2016 - int(tool[index_purchase_date])):
+            exceeded_durability_items.append(tool)
+
+    return exceeded_durability_items
 
 # the question: What are the average durability time for each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [avg] }
