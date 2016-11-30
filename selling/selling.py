@@ -44,7 +44,8 @@ def choose():
     elif option == "2":
         add(data_manager.get_table_from_file("selling/sellings.csv"))
     elif option == "3":
-        remove()
+        remove(data_manager.get_table_from_file(
+            "selling/sellings_test.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "4":
         update()
     elif option == "5":
@@ -70,7 +71,14 @@ def show_table(table):
 # @table: list of lists
 def add(table):
     structure_elements = common.get_selling_structure_elements()
-    table.append(ui.get_inputs(structure_elements, ""))
+    ID = common.generate_random(table)
+
+    new_entry = ui.get_inputs(
+        structure_elements[1::], "Selling - Add Entry")
+
+    new_entry.insert(0, ID)
+    table.append(new_entry)
+
     data_manager.write_table_to_file("selling/sellingstest.csv", table)
 
 
@@ -80,10 +88,16 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_):
+            table.remove(table[i])
+            break
 
+    data_manager.write_table_to_file("selling/sellingtest.csv", table)
     return table
+
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
