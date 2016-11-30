@@ -45,9 +45,10 @@ def choose():
         add(data_manager.get_table_from_file("selling/sellings.csv"))
     elif option == "3":
         remove(data_manager.get_table_from_file(
-            "selling/sellings_test.csv"), ui.get_inputs(["Enter id"], ""))
+            "selling/sellings.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "4":
-        update()
+        update(data_manager.get_table_from_file(
+            "selling/sellings.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "5":
         get_lowest_price_item_id()
     elif option == "6":
@@ -79,7 +80,7 @@ def add(table):
     new_entry.insert(0, ID)
     table.append(new_entry)
 
-    data_manager.write_table_to_file("selling/sellingstest.csv", table)
+    data_manager.write_table_to_file("selling/sellings_test.csv", table)
 
 
 
@@ -91,11 +92,11 @@ def remove(table, id_):
     index_id = 0
 
     for i in range(0, len(table)):
-        if (table[i][index_id] == id_):
+        if (table[i][index_id] == id_[0]):
             table.remove(table[i])
             break
 
-    data_manager.write_table_to_file("selling/sellingtest.csv", table)
+    data_manager.write_table_to_file("selling/sellings_test.csv", table)
     return table
 
 
@@ -106,7 +107,18 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    index_id = 0
+    structure_elements = common.get_selling_structure_elements()
+    ID = common.generate_random(table)
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[0]):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, ID)
+            table.insert(i, updated_entry)
+            break
 
+    data_manager.write_table_to_file("selling/sellings_test.csv", table)
     # your code
 
     return table
