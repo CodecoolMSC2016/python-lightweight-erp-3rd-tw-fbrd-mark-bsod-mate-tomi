@@ -21,16 +21,15 @@ data_manager = SourceFileLoader(
 common = SourceFileLoader(
     "common", current_file_path + "/../common.py").load_module()
 
+
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
-# we need to reach the default and the special functions of this module from the module menu
-#
-
-
+# we need to reach the default and the special functions of this module
+# from the module menu
 def start_module():
     options = ["Show table", "Add entry", "Remove entry", "Update entry",
                "Get most profitable year", "Get average profit/item"]
-    ui.print_menu("Accounting", options, "Back to main menu")
+    ui.print_menu("\nAccounting", options, "Back to main menu")
     choose()
 
 
@@ -49,7 +48,8 @@ def choose():
         remove(read_file(), ui.get_inputs(
             ["Enter ID for removal"], "Accounting - Remove Entry"))
     elif option == "4":
-        update(read_file(), 1)
+        update(read_file(), ui.get_inputs(
+            ["Enter ID for update"], "Accounting - Update"))
     elif option == "5":
         which_year_max(read_file())
     elif option == "6":
@@ -59,11 +59,10 @@ def choose():
     else:
         raise KeyError("There is no such option.")
 
+
 # print the default table of records from the file
 #
 # @table: list of lists
-
-
 def show_table(table):
     ui.print_table(table, common.get_accounting_structure_elements())
 
@@ -105,10 +104,18 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    index_id = 0
+    structure_elements = common.get_accounting_structure_elements()
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, id_[index_id])
+            table.insert(i, updated_entry)
+            break
 
-    return table
+    data_manager.write_table_to_file("accounting/items_test.csv", table)
 
 
 # special functions:
@@ -117,16 +124,30 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out)
 # return the answer (number)
 def which_year_max(table):
+    YEAR_INDEX = 3
+    yearly_profits = []
+    years_in_table = []
+    index_max_profit = 0
 
-    # your code
+    # getting all years from table into a list
+    for entry in table:
+        if int(entry[YEAR_INDEX]) not in years_in_table:
+            years_in_table.append(int(entry[YEAR_INDEX]))
 
-    pass
+    for years in years_in_table:
+        yearly_profits.append(common.get_profit_of_year(table, years))
+
+    for profit in range(len(yearly_profits)):
+        if yearly_profits[profit] > yearly_profits[index_max_profit]:
+            index_max_profit = profit
+
+    return years_in_table[index_max_profit]
 
 
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
 
-    # your code
+    avg_per_item = 0
 
-    pass
+    return avg_per_item
