@@ -122,7 +122,7 @@ def update(table, id_):
             table.insert(i, updated_entry)
             break
 
-    data_manager.write_table_to_file("store/gamess_test.csv", table)
+    data_manager.write_table_to_file("store/games_test.csv", table)
 
     return table
 
