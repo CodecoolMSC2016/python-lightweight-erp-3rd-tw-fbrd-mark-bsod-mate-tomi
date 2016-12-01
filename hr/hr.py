@@ -12,9 +12,11 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
+data_manager = SourceFileLoader(
+    "data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
-common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+common = SourceFileLoader(
+    "common", current_file_path + "/../common.py").load_module()
 
 YEARS = 2
 NAMES = 1
@@ -23,10 +25,14 @@ NAMES = 1
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
+
+
 def start_module():
-    list_functions = ["Show table", "Add", "Remove", "Update", "Get oldest person", "Get persons closest to average"]
+    list_functions = ["Show table", "Add", "Remove", "Update",
+                      "Get oldest person", "Get persons closest to average"]
     ui.print_menu("Hr manager", list_functions, "Back to main menu")
     choose()
+
 
 def choose():
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -34,15 +40,20 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "2":
-        data_manager.write_table_to_file("hr/export_hr.csv", add(data_manager.get_table_from_file("hr/persons.csv")))
+        data_manager.write_table_to_file(
+            "hr/export_hr.csv", add(data_manager.get_table_from_file("hr/persons.csv")))
     elif option == "3":
-        data_manager.write_table_to_file("hr/export_hr.csv", remove(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
+        data_manager.write_table_to_file("hr/export_hr.csv", remove(
+            data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "4":
-        data_manager.write_table_to_file("hr/export_hr.csv", update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
+        data_manager.write_table_to_file("hr/export_hr.csv", update(
+            data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "5":
-        ui.print_result(get_oldest_person(data_manager.get_table_from_file("hr/persons.csv")), "The oldest person is/are: ")
+        ui.print_result(get_oldest_person(data_manager.get_table_from_file(
+            "hr/persons.csv")), "The oldest person is/are: ")
     elif option == "6":
-        ui.print_result(get_persons_closest_to_average(data_manager.get_table_from_file("hr/persons.csv")), "Closest to average: ")
+        ui.print_result(get_persons_closest_to_average(
+            data_manager.get_table_from_file("hr/persons.csv")), "Closest to average: ")
     elif option == "0":
         pass
     else:
@@ -51,14 +62,19 @@ def choose():
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
     structure_elements = common.get_hr_structure_elements()
-    ui.print_table(data_manager.get_table_from_file("hr/persons.csv"), structure_elements)
+    ui.print_table(data_manager.get_table_from_file(
+        "hr/persons.csv"), structure_elements)
     start_module()
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
+
+
 def add(table):
     structure_elements = common.get_hr_structure_elements()
     ID = common.generate_random(table)
@@ -71,6 +87,8 @@ def add(table):
 #
 # @table: list of lists
 # @id_: string
+
+
 def remove(table, id_):
     index_id = 0
     for i in range(len(table)):
@@ -85,6 +103,8 @@ def remove(table, id_):
 #
 # @table: list of lists
 # @id_: string
+
+
 def update(table, id_):
     index_id = 0
     structure_elements = common.get_hr_structure_elements()
@@ -101,7 +121,10 @@ def update(table, id_):
 # ------------------
 
 # the question: Who is the oldest person ?
-# return type: list of strings (name or names if there are two more with the same value)
+# return type: list of strings (name or names if there are two more with
+# the same value)
+
+
 def get_oldest_person(table):
     data_manager.get_table_from_file("hr/persons.csv")
     oldest_persons = []
@@ -115,22 +138,28 @@ def get_oldest_person(table):
     return oldest_persons
 
 # the question: Who is the closest to the average age ?
-# return type: list of strings (name or names if there are two more with the same value)
+# return type: list of strings (name or names if there are two more with
+# the same value)
+
+
 def get_persons_closest_to_average(table):
     sum_years = 0
     for item in table:
         sum_years += int(item[YEARS])
+
     average = sum_years / len(table)
     average_difference = []
+
     for item in range(len(table)):
         difference = int(table[item][YEARS]) - average
         average_difference.append(abs(difference))
+
     min_diff = 0
     for difference in range(len(average_difference)):
         if int(average_difference[difference]) < average_difference[min_diff]:
             min_diff = difference
-    return table[min_diff][NAMES]
 
+    closest_names = []
+    closest_names.append(table[min_diff][NAMES])
 
-#
-#    pass
+    return closest_names
