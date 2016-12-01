@@ -71,6 +71,7 @@ def choose():
 # @table: list of lists
 def show_table(table):
     ui.print_table(table, common.get_accounting_structure_elements())
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
