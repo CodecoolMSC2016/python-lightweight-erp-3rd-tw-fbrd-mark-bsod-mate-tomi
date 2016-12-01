@@ -41,7 +41,6 @@ def print_table(table, title_list):
 
     print("|", end="")
     print()
-
     print("|" + "-" * line_width + "| ")  # aftertitleline
 
     for i in range(0, len(table)):
@@ -51,6 +50,10 @@ def print_table(table, title_list):
 
         print("|", end="")
         print()
+        if i == len(table) - 1:
+            pass
+        else:
+            print("|" + "-" * line_width + "| ")
 
     print('\\' + "-" * line_width + "/")  # bottomline
     pass
