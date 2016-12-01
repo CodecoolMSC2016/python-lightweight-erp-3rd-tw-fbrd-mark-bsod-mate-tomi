@@ -80,7 +80,7 @@ def add(table):
 
     table.append(new_entry)
 
-    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    data_manager.write_table_to_file("tool_manager/tools.csv", table)
     return table
 
 
@@ -96,7 +96,7 @@ def remove(table, id_):
             table.remove(table[i])
             break
 
-    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    data_manager.write_table_to_file("tool_manager/tools.csv", table)
     return table
 
 
@@ -117,7 +117,7 @@ def update(table, id_):
             table.insert(i, updated_entry)
             break
 
-    data_manager.write_table_to_file("tool_manager/export_tools.csv", table)
+    data_manager.write_table_to_file("tool_manager/tools.csv", table)
     return table
 
 
