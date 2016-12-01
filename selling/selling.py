@@ -26,15 +26,14 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-
-    menu_elements = ["Show_table",
+     menu_elements = ["Show_table",
                      "Add",
                      "Remove",
                      "Update",
                      "Lowest price item",
                      "Items sold between"]
-    ui.print_menu("Selling", menu_elements, "Back to main menu")
-    choose()
+     ui.print_menu("Selling", menu_elements, "Back to main menu")
+     choose()
 
 def choose():
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -66,8 +65,9 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    title_list = ["id", "title", "price", "month", "day", "year"]
+    title_list = common.get_selling_structure_elements()
     ui.print_table(table, title_list)
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -84,7 +84,7 @@ def add(table):
     table.append(new_entry)
 
     data_manager.write_table_to_file("selling/sellings_test.csv", table)
-
+    return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
@@ -141,6 +141,7 @@ def get_lowest_price_item_id(table):
     for i in table:
         if int(i[2]) == lowest_price:
             ui.print_result(i[0], "The id of item sold on lowest price")
+            return i[0]
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
@@ -154,10 +155,4 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
             filtered_table.append(i)
 
     ui.print_result(filtered_table, "items between dates")
-
-
-
-
-
-
-    pass
+    return filtered_table

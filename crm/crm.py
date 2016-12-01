@@ -29,15 +29,15 @@ def start_module():
     if option == "1":
         show_table(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "2":
-        add(data_manager.get_table_from_file(CSV_FILE_PATH))
+        add(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "3":
-        remove()
+        remove(data_manager.get_table_from_file("crm/customers.csv"),id_ = ui.get_inputs(["Please enter an ID"], ""))
     elif option == "4":
-        update()
+        update(data_manager.get_table_from_file("crm/customers.csv"),id_ = ui.get_inputs(["Please enter an ID"], ""))
     elif option == "5":
-        get_longest_name_id()
+        get_longest_name_id(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "6":
-        get_subscribed_emails()
+        get_subscribed_emails(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "0":
          pass
     else:
@@ -60,7 +60,12 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
+    #id+=common.generate_random(data_manager.get_table_from_file("crm/customers.csv"))
+    structure_elements = ["name", "email", "subscribed",]
+    structure_elements=ui.get_inputs(structure_elements,"")
+    structure_elements.insert(0,common.generate_random(table))
+    table.append(structure_elements)
+    data_manager.write_table_to_file("crm/customers.csv", table)
     # your code
 
     return table
@@ -71,9 +76,14 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[0]):
+            table.remove(table[i])
+            break
 
+    data_manager.write_table_to_file("crm/customers.csv", table)
     return table
 
 
@@ -83,8 +93,17 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
+    index_id = 0
+    structure_elements = ["id","name", "email", "subscribed",]
+    ID = common.generate_random(table)
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, ID)
+            table.insert(i, updated_entry)
+            break
+    data_manager.write_table_to_file("crm/customers.csv", table)
 
     return table
 
@@ -96,17 +115,33 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-
-
-    # your code
-
+    index_name=1
+    index_id=0
+    longestsubscribename=0
+    longestnamelist=[]
+    longestid=[]
+    for i in range(0, len(table)):
+        if  longestsubscribename<=len(table[i][index_name]):
+            longestid.append(table[i][index_id])
+            longestsubscribename=len(table[i][index_name])
+            longestnamelist.append(table[i][index_name])
+            list.sort(longestid)
+    ui.print_result(longestid,"The list of IDs of People with the longest names")
+    return longestid
     pass
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
+    index_subscribe=3
+    index_email=2
+    index_name=1
+    subscribed_maillist=[]
+    for i in range(0,len(table)):
+        if table[i][index_subscribe]=='1':
+            subscribed_maillist.append(table[i][index_email]+";"+table[i][index_name])
+    ui.print_result(subscribed_maillist,"The List of People Who Subscribed To The Newsletter")
+    return subscribed_maillist
 
     pass

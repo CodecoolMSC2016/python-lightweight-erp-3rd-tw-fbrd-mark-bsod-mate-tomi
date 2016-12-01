@@ -16,6 +16,8 @@ data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_ma
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
+YEARS = 2
+NAMES = 1
 
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
@@ -103,21 +105,21 @@ def update(table, id_):
 def get_oldest_person(table):
     data_manager.get_table_from_file("hr/persons.csv")
     oldest = 999999
-    for i in range(len(table)):
-        if int(table[i][2]) < oldest:
-            oldest = int(table[i][2])
-    for i in table:
-        if int(i[2]) == oldest:
-            ui.print_result(i[1], "The oldest person is: ")
+    for row in range(len(table)):
+        if int(table[row][YEARS]) < oldest:
+            oldest = int(table[row][YEARS])
+    for row in table:
+        if int(row[YEARS]) == oldest:
+            ui.print_result(row[NAMES], "The oldest person is: ")
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_persons_closest_to_average(table):
-    average = 0
+    sum_years = 0
     for item in table:
-        average += int(item[2])
-    average = average / len(table)
-#
+        sum_years += int(item[YEARS])
+    sum_years = sum_years / len(table)
+
 #
 #    pass

@@ -24,28 +24,68 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    menu_elements = ["Show_table",
+                     "Add",
+                     "Remove",
+                     "Update",
+                     "Kind of games",
+                     "Avarage amount of games in stock"]
+    ui.print_menu("Store", menu_elements, "Back to main menu")
+    choose()
 
-    # you code
 
-    pass
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file("store/games.csv"))
+    elif option == "2":
+        add(data_manager.get_table_from_file("store/games.csv"))
+    elif option == "3":
+        remove(data_manager.get_table_from_file(
+            "store/games.csv"), ui.get_inputs(["Enter id"], ""))
+    elif option == "4":
+        update(data_manager.get_table_from_file(
+            "store/games.csv"), ui.get_inputs(["Enter id"], ""))
+    elif option == "5":
+        get_counts_by_manufacturers(data_manager.get_table_from_file(
+            "store/games.csv"))
+    elif option == "6":
+        inputs = ui.get_inputs(["manufacturer"], "Enter the name of the manufacturer")
+        get_average_by_manufacturer(data_manager.get_table_from_file(
+            "store/games.csv"), inputs[0])
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
 def show_table(table):
+    title_list = common.get_store_structure_elements()
+    ui.print_table(table, title_list)
+    start_module()
 
-    # your code
 
-    pass
+
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
 def add(table):
+    structure_elements = common.get_store_structure_elements()
+    ID = common.generate_random(table)
 
-    # your code
+    new_entry = ui.get_inputs(
+        structure_elements[1::], "Store - Add Entry")
+
+    new_entry.insert(0, ID)
+    table.append(new_entry)
+
+    data_manager.write_table_to_file("store/games_test.csv", table)
 
     return table
 
@@ -55,10 +95,16 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            break
 
+    data_manager.write_table_to_file("store/games_test.csv", table)
     return table
+
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -67,8 +113,18 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    index_id = 0
+    structure_elements = common.get_store_structure_elements()
+    ID = common.generate_random(table)
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            updated_entry = ui.get_inputs(structure_elements[1::], "")
+            updated_entry.insert(0, ID)
+            table.insert(i, updated_entry)
+            break
 
-    # your code
+    data_manager.write_table_to_file("store/games_test.csv", table)
 
     return table
 
@@ -88,7 +144,11 @@ def get_counts_by_manufacturers(table):
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
-
-    # your code
-
-    pass
+    stock_max = 0
+    counter = 0
+    for i in table:
+        if i[2] == manufacturer:
+            stock_max += int(i[4])
+            counter += 1
+    ui.print_result(stock_max / counter, "Avarage stock by given manufacturer")
+    return stock_max / counter
