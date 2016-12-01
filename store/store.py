@@ -14,9 +14,11 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
+data_manager = SourceFileLoader(
+    "data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
-common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+common = SourceFileLoader(
+    "common", current_file_path + "/../common.py").load_module()
 
 
 # start this module by a module menu like the main menu
@@ -24,7 +26,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    menu_elements = ["Show_table",
+    menu_elements = ["Show table",
                      "Add",
                      "Remove",
                      "Update",
@@ -67,9 +69,6 @@ def show_table(table):
     ui.print_table(table, title_list)
 
 
-
-
-
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
@@ -104,7 +103,6 @@ def remove(table, id_):
     return table
 
 
-
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 #
@@ -133,8 +131,12 @@ def update(table, id_):
 # the question: How many different kinds of game are available of each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
 def get_counts_by_manufacturers(table):
+    GAME_NAME = 1
+    PUBLISHER_NAME = 2
+    game_repertoire = {}
 
-    # your code
+    for games in table:
+        if games
 
     pass
 
