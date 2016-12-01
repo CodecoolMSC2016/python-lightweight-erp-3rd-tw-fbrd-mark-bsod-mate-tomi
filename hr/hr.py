@@ -101,6 +101,7 @@ def remove(table, id_):
 
 
 def update(table, id_):
+    ID = id_[0]
     index_id = 0
     structure_elements = common.get_hr_structure_elements()
     ID = common.generate_random(table)
