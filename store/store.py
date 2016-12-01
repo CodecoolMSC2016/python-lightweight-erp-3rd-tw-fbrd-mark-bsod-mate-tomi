@@ -53,7 +53,8 @@ def choose():
         get_counts_by_manufacturers(data_manager.get_table_from_file(
             "store/games.csv"))
     elif option == "6":
-        inputs = ui.get_inputs(["manufacturer"], "Enter the name of the manufacturer")
+        inputs = ui.get_inputs(
+            ["manufacturer"], "Enter the name of the manufacturer")
         get_average_by_manufacturer(data_manager.get_table_from_file(
             "store/games.csv"), inputs[0])
     elif option == "0":
@@ -138,8 +139,8 @@ def get_counts_by_manufacturers(table):
     game_repertoire = {}
 
     for games in table:
-        if games
-
+        if games[PUBLISHER_NAME] not in game_repertoire:
+            pass
     pass
 
 
