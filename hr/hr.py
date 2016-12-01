@@ -75,7 +75,7 @@ def add(table):
     new_entry = ui.get_inputs(structure_elements[1::], " ")
     new_entry.insert(0, ID)
     table.append(new_entry)
-    data_manager.write_table_to_file("hr/persons_test.csv", table)
+    data_manager.write_table_to_file("hr/persons.csv", table)
     return table
 # Remove the record having the id @id_ from the @list, than return @table
 #
@@ -90,7 +90,7 @@ def remove(table, id_):
             table.remove(table[i])
             break
 
-    data_manager.write_table_to_file("hr/persons_test.csv", table)
+    data_manager.write_table_to_file("hr/persons.csv", table)
     return table
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -111,7 +111,7 @@ def update(table, id_):
             update_entry.insert(0, ID)
             table.insert(i, update_entry)
             break
-    data_manager.write_table_to_file("hr/persons_test.csv", table)
+    data_manager.write_table_to_file("hr/persons.csv", table)
     return table
 
 # special functions:
