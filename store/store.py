@@ -149,9 +149,12 @@ def get_counts_by_manufacturers(table):
 def get_average_by_manufacturer(table, manufacturer):
     stock_max = 0
     counter = 0
-    for i in table:
-        if i[2] == manufacturer:
-            stock_max += int(i[4])
+    STOCK = 4
+    MANUFACTURER = 2
+
+    for game in table:
+        if game[MANUFACTURER] == manufacturer:
+            stock_max += int(game[STOCK])
             counter += 1
     ui.print_result(stock_max / counter, "Avarage stock by given manufacturer")
     return stock_max / counter
