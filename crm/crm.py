@@ -22,7 +22,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    menu_elements=["Show Table","Add","Remove","Update","Get longest name","Get subscribed ID"]
+    menu_elements=["Show Table","Add","Remove","Update","Get ID of Longest name","Get subscriber name and email address"]
     ui.print_menu("Customer Relationship Management", menu_elements, "Back to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
@@ -117,17 +117,25 @@ def update(table, id_):
 def get_longest_name_id(table):
     index_name=1
     index_id=0
-    longestsubscribename=0
+    longestsubscribername=0
+    temporaryid=""
+    temporaryname=""
     longestnamelist=[]
-    longestid=[]
+    longestsubscriberid=[]
     for i in range(0, len(table)):
-        if  longestsubscribename<=len(table[i][index_name]):
-            longestid.append(table[i][index_id])
-            longestsubscribename=len(table[i][index_name])
+        if  longestsubscribername<=len(table[i][index_name]):
+            longestsubscribername=len(table[i][index_name])
+        if longestsubscribername==len(table[i][index_name]):
+            longestsubscriberid.append(table[i][index_id])
             longestnamelist.append(table[i][index_name])
-            list.sort(longestid)
-    ui.print_result(longestid,"The list of IDs of People with the longest names")
-    return longestid
+    temporaryid=longestsubscriberid[0]
+    temporaryname=longestnamelist[0]
+    for i in range (0,len(longestnamelist),1):
+        if longestnamelist[i]<temporaryname:
+            temporaryid=longestsubscriberid[i]
+            temporaryname=longestnamelist[i]
+    ui.print_result(temporaryid,"The ID of the longest named person")
+    return temporaryid
     pass
 
 
