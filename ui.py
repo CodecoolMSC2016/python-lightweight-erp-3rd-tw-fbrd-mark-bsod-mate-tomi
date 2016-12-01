@@ -26,12 +26,11 @@ def print_table(table, title_list):
                 dict_column_width[title_list[column_index]] = len(
                     table[row_index][column_index])
 
-    # set line_width
-    for elements, title in zip(title_list, title_list):
-        line_width += len(elements.center(dict_column_width[title] + 2, " "))
+    for k, v in dict_column_width.items():
+        line_width += v + 2
     line_width += 4
 
-    title_marg = int((line_width - title_width) / len(title_list) / 2)
+    line_width -= 5 - (len(title_list))
 
     print("/" + "-" * line_width + "\ ")  # topline
 
