@@ -22,7 +22,7 @@ def get_accounting_structure_elements():
     return structure_elements
 
 def get_store_structure_elements():
-    structure_elements = ["id", "title", "price", "month", "day", "year"]
+    structure_elements = ["id", "title", "manufacturer", "price", "in_stock"]
     return structure_elements
 
 
