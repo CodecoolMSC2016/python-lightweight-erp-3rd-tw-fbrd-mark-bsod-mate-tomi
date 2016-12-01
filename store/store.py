@@ -93,10 +93,16 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    index_id = 0
 
-    # your code
+    for i in range(0, len(table)):
+        if (table[i][index_id] == id_[index_id]):
+            table.remove(table[i])
+            break
 
+    data_manager.write_table_to_file("store/games_test.csv", table)
     return table
+
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
