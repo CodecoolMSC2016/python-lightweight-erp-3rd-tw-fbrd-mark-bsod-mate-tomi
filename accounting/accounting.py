@@ -23,6 +23,7 @@ common = SourceFileLoader(
 
 # used constants
 YEAR_INDEX = 3
+FILE_PATH = "accounting/items.csv"
 
 
 # start this module by a module menu like the main menu
@@ -36,7 +37,7 @@ def start_module():
     choose()
 
 
-def read_file(file_name="accounting/items_test.csv"):
+def read_file(file_name=FILE_PATH):
     return data_manager.get_table_from_file(file_name)
 
 
@@ -47,12 +48,12 @@ def choose():
         show_table(read_file())
     elif option == "2":
         data_manager.write_table_to_file(
-            "accounting/items_test.csv", add(data_manager.get_table_from_file("accounting/items_test.csv")))
+            FILE_PATH, add(data_manager.get_table_from_file(FILE_PATH)))
     elif option == "3":
-        data_manager.write_table_to_file("accounting/items_test.csv", remove(read_file(), ui.get_inputs(
+        data_manager.write_table_to_file(FILE_PATH, remove(read_file(), ui.get_inputs(
             ["Enter ID for removal"], "Accounting - Remove Entry")))
     elif option == "4":
-        data_manager.write_table_to_file("accounting/items_test.csv",  update(read_file(), ui.get_inputs(
+        data_manager.write_table_to_file(FILE_PATH,  update(read_file(), ui.get_inputs(
             ["Enter ID for update"], "Accounting - Update")))
     elif option == "5":
         ui.print_result(which_year_max(read_file()),

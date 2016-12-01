@@ -40,11 +40,11 @@ def choose():
     elif option == "4":
         data_manager.write_table_to_file("hr/export_hr.csv", update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "5":
-        get_oldest_person(data_manager.get_table_from_file("hr/persons.csv"))
+        ui.print_result(get_oldest_person(data_manager.get_table_from_file("hr/persons.csv")), "The oldest person is/are: ")
     elif option == "6":
-        get_persons_closest_to_average(data_manager.get_table_from_file("hr/persons.csv"))
+        ui.print_result(get_persons_closest_to_average(data_manager.get_table_from_file("hr/persons.csv")), "Closest to average: ")
     elif option == "0":
-        sys.exit(0)
+        pass
     else:
         raise KeyError("There is no such option.")
 
@@ -104,14 +104,15 @@ def update(table, id_):
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
     data_manager.get_table_from_file("hr/persons.csv")
+    oldest_persons = []
     oldest = 999999
     for row in range(len(table)):
         if int(table[row][YEARS]) < oldest:
             oldest = int(table[row][YEARS])
     for row in table:
         if int(row[YEARS]) == oldest:
-            ui.print_result(row[NAMES], "The oldest person is: ")
-
+            oldest_persons.append(row[NAMES])
+    return oldest_persons
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
@@ -119,7 +120,17 @@ def get_persons_closest_to_average(table):
     sum_years = 0
     for item in table:
         sum_years += int(item[YEARS])
-    sum_years = sum_years / len(table)
+    average = sum_years / len(table)
+    average_difference = []
+    for item in range(len(table)):
+        difference = int(table[item][YEARS]) - average
+        average_difference.append(abs(difference))
+    min_diff = 0
+    for difference in range(len(average_difference)):
+        if int(average_difference[difference]) < average_difference[min_diff]:
+            min_diff = difference
+    return table[min_diff][NAMES]
+
 
 #
 #    pass

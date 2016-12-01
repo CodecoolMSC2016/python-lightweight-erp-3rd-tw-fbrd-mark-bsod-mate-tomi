@@ -30,7 +30,7 @@ def start_module():
                      "Add",
                      "Remove",
                      "Update",
-                     "Kind of games",
+                     "Games by manufacturers",
                      "Avarage amount of games in stock"]
     ui.print_menu("Store", menu_elements, "Back to main menu")
     choose()
@@ -134,14 +134,19 @@ def update(table, id_):
 # the question: How many different kinds of game are available of each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
 def get_counts_by_manufacturers(table):
-    GAME_NAME = 1
     PUBLISHER_NAME = 2
     game_repertoire = {}
 
     for games in table:
         if games[PUBLISHER_NAME] not in game_repertoire:
-            pass
-    pass
+            game_repertoire.update({games[PUBLISHER_NAME]: 1})
+        else:
+            game_repertoire.update(
+                {games[PUBLISHER_NAME]: game_repertoire[games[PUBLISHER_NAME]] + 1})
+
+    ui.print_result(game_repertoire, "Number of games by Publisher:")
+
+    return game_repertoire
 
 
 # the question: What is the average amount of games in stock of a given manufacturer?
@@ -149,9 +154,12 @@ def get_counts_by_manufacturers(table):
 def get_average_by_manufacturer(table, manufacturer):
     stock_max = 0
     counter = 0
-    for i in table:
-        if i[2] == manufacturer:
-            stock_max += int(i[4])
+    STOCK = 4
+    MANUFACTURER = 2
+
+    for game in table:
+        if game[MANUFACTURER] == manufacturer:
+            stock_max += int(game[STOCK])
             counter += 1
     ui.print_result(stock_max / counter, "Avarage stock by given manufacturer")
     return stock_max / counter
