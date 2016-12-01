@@ -63,7 +63,9 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    pass
+    title_list = common.get_store_structure_elements()
+    ui.print_table(table, title_list)
+
 
 
 

@@ -65,7 +65,7 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    title_list = get_selling_structure_elements()
+    title_list = common.get_selling_structure_elements()
     ui.print_table(table, title_list)
 
 
