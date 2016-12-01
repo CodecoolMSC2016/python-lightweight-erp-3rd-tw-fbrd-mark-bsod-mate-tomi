@@ -144,6 +144,8 @@ def get_counts_by_manufacturers(table):
             game_repertoire.update(
                 {games[PUBLISHER_NAME]: game_repertoire[games[PUBLISHER_NAME]] + 1})
 
+    ui.print_result(game_repertoire, "Number of games by Publisher:")
+
     return game_repertoire
 
 
