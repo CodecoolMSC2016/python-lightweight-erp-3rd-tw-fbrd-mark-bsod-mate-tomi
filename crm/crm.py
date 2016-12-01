@@ -126,9 +126,8 @@ def get_longest_name_id(table):
             longestsubscribename=len(table[i][index_name])
             longestnamelist.append(table[i][index_name])
             list.sort(longestid)
+    ui.print_result(longestid,"The list of IDs of People with the longest names")
     return longestid
-    # your code
-
     pass
 
 
@@ -140,10 +139,9 @@ def get_subscribed_emails(table):
     index_name=1
     subscribed_maillist=[]
     for i in range(0,len(table)):
-        if table[i][index_subscribe]==1:
+        if table[i][index_subscribe]=='1':
             subscribed_maillist.append(table[i][index_email]+";"+table[i][index_name])
-    for elements in subscribed_maillist:
-        print(subscribed_maillist[elements])
+    ui.print_result(subscribed_maillist,"The List of People Who Subscribed To The Newsletter")
     return subscribed_maillist
 
     pass

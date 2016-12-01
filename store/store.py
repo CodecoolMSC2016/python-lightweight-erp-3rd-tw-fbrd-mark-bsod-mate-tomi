@@ -53,8 +53,9 @@ def choose():
         get_counts_by_manufacturers(data_manager.get_table_from_file(
             "store/games.csv"))
     elif option == "6":
+        inputs = ui.get_inputs(["manufacturer"], "Enter the name of the manufacturer")
         get_average_by_manufacturer(data_manager.get_table_from_file(
-            "store/games.csv"), "?????????????????????")
+            "store/games.csv"), inputs[0])
     elif option == "0":
         pass
     else:
@@ -67,6 +68,7 @@ def choose():
 def show_table(table):
     title_list = common.get_store_structure_elements()
     ui.print_table(table, title_list)
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -120,7 +122,7 @@ def update(table, id_):
             table.insert(i, updated_entry)
             break
 
-    data_manager.write_table_to_file("store/gamess_test.csv", table)
+    data_manager.write_table_to_file("store/games_test.csv", table)
 
     return table
 
@@ -144,7 +146,11 @@ def get_counts_by_manufacturers(table):
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
-
-    # your code
-
-    pass
+    stock_max = 0
+    counter = 0
+    for i in table:
+        if i[2] == manufacturer:
+            stock_max += int(i[4])
+            counter += 1
+    ui.print_result(stock_max / counter, "Avarage stock by given manufacturer")
+    return stock_max / counter
