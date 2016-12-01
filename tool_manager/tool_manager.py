@@ -135,7 +135,9 @@ def get_available_tools(table):
         if int(tool[index_durability]) > (2016 - int(tool[index_purchase_date])):
             not_exceeded_durability_items.append(tool)
 
-    not_exceeded_durability_items.map(int, not_exceeded_durability_items[-2::])
+    for i in range(len(not_exceeded_durability_items)):
+        not_exceeded_durability_items[i][3:] = map(
+            int, not_exceeded_durability_items[i][3:])
 
     ui.print_result(not_exceeded_durability_items, "Not exceeded items")
     return not_exceeded_durability_items
