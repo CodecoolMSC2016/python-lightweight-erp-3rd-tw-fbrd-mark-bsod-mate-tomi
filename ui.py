@@ -12,16 +12,47 @@
 # @table: list of lists - the table to print out
 # @title_list: list of strings - the head of the table
 def print_table(table, title_list):
+    line_width = 0
+    title_width = 0
+    dict_column_width = {}
 
     for title in title_list:
-        print(title + "    ", end="")
+        dict_column_width[title] = len(title)
+        title_width += len(title)
+
+    for row_index in range(len(table)):
+        for column_index in range(len(table[row_index])):
+            if(len(table[row_index][column_index]) > dict_column_width[title_list[column_index]]):
+                dict_column_width[title_list[column_index]] = len(
+                    table[row_index][column_index])
+
+    for k, v in dict_column_width.items():
+        line_width += v + 2
+
+    title_marg = int((line_width - title_width) / len(title_list) / 2)
+
+    line_width += title_marg + 1
+
+    print("/" + "-" * line_width + "\ ")  # topline
+
+    for elements, title in zip(title_list, title_list):
+        print("|", end="")
+        print(elements.center(dict_column_width[title] + 2, " "), end="")
+
+    print("|", end="")
     print()
 
+    print("|" + "-" * line_width + "| ")  # aftertitleline
+
     for i in range(0, len(table)):
-        for elements in table[i]:
-            print(elements + "    ", end="")
+        for elements, title in zip(table[i], title_list):
+            print("|", end="")
+            print(elements.center(dict_column_width[title] + 2, " "), end="")
+
+        print("|", end="")
         print()
 
+    print('\\' + "-" * line_width + "/")  # bottomline
     pass
 
 
