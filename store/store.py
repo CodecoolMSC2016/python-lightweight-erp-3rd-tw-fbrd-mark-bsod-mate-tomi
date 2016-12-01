@@ -24,20 +24,48 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    menu_elements = ["Show_table",
+                     "Add",
+                     "Remove",
+                     "Update",
+                     "Kind of games",
+                     "Avarage amount of games in stock"]
+    ui.print_menu("Store", menu_elements, "Back to main menu")
+    choose()
 
-    # you code
 
-    pass
+def choose():
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(data_manager.get_table_from_file("store/games.csv"))
+    elif option == "2":
+        add(data_manager.get_table_from_file("store/games.csv"))
+    elif option == "3":
+        remove(data_manager.get_table_from_file(
+            "store/games.csv"), ui.get_inputs(["Enter id"], ""))
+    elif option == "4":
+        update(data_manager.get_table_from_file(
+            "store/games.csv"), ui.get_inputs(["Enter id"], ""))
+    elif option == "5":
+        get_counts_by_manufacturers(data_manager.get_table_from_file(
+            "store/games.csv"))
+    elif option == "6":
+        get_average_by_manufacturer(data_manager.get_table_from_file(
+            "store/games.csv"), "?????????????????????")
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
-
     pass
+
+
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
