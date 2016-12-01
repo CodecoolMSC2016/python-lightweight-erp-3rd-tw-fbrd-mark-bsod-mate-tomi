@@ -37,7 +37,7 @@ def start_module():
     elif option == "5":
         get_longest_name_id(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "6":
-        get_subscribed_emails()
+        get_subscribed_emails(data_manager.get_table_from_file("crm/customers.csv"))
     elif option == "0":
          pass
     else:
@@ -115,27 +115,33 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-    index_subscribe=3
     index_name=1
     index_id=0
     longestsubscribename=0
-    longestid=""
+    longestnamelist=[]
+    longestid=[]
     for i in range(0, len(table)):
-        if table[i][index_subscribe] == '1' and longestsubscribename<=len(table[i][index_name]):
-            longestid=table[i][index_id]
-            longestsubscribename=table[i][index_name]
-            break
-    print(longestid)
+        if  longestsubscribename<=len(table[i][index_name]):
+            longestid.append(table[i][index_id])
+            longestsubscribename=len(table[i][index_name])
+            longestnamelist.append(table[i][index_name])
+            list.sort(longestid)
+    ui.print_result(longestid,"The list of IDs of People with the longest names")
     return longestid
-    # your code
-
     pass
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
+    index_subscribe=3
+    index_email=2
+    index_name=1
+    subscribed_maillist=[]
+    for i in range(0,len(table)):
+        if table[i][index_subscribe]=='1':
+            subscribed_maillist.append(table[i][index_email]+";"+table[i][index_name])
+    ui.print_result(subscribed_maillist,"The List of People Who Subscribed To The Newsletter")
+    return subscribed_maillist
 
     pass

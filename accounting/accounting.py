@@ -23,6 +23,7 @@ common = SourceFileLoader(
 
 # used constants
 YEAR_INDEX = 3
+FILE_PATH = "accounting/items.csv"
 
 
 # start this module by a module menu like the main menu
@@ -36,7 +37,7 @@ def start_module():
     choose()
 
 
-def read_file(file_name="accounting/items_test.csv"):
+def read_file(file_name=FILE_PATH):
     return data_manager.get_table_from_file(file_name)
 
 
@@ -46,13 +47,14 @@ def choose():
     if option == "1":
         show_table(read_file())
     elif option == "2":
-        add(read_file())
+        data_manager.write_table_to_file(
+            FILE_PATH, add(data_manager.get_table_from_file(FILE_PATH)))
     elif option == "3":
-        remove(read_file(), ui.get_inputs(
-            ["Enter ID for removal"], "Accounting - Remove Entry"))
+        data_manager.write_table_to_file(FILE_PATH, remove(read_file(), ui.get_inputs(
+            ["Enter ID for removal"], "Accounting - Remove Entry")))
     elif option == "4":
-        update(read_file(), ui.get_inputs(
-            ["Enter ID for update"], "Accounting - Update"))
+        data_manager.write_table_to_file(FILE_PATH,  update(read_file(), ui.get_inputs(
+            ["Enter ID for update"], "Accounting - Update")))
     elif option == "5":
         ui.print_result(which_year_max(read_file()),
                         "We had the highest profit in:")
@@ -70,6 +72,7 @@ def choose():
 # @table: list of lists
 def show_table(table):
     ui.print_table(table, common.get_accounting_structure_elements())
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -85,7 +88,7 @@ def add(table):
     new_entry.insert(0, ID)
     table.append(new_entry)
 
-    data_manager.write_table_to_file("accounting/items_test.csv", table)
+    return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
@@ -100,7 +103,7 @@ def remove(table, id_):
             table.remove(table[i])
             break
 
-    data_manager.write_table_to_file("accounting/items_test.csv", table)
+    return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -120,7 +123,7 @@ def update(table, id_):
             table.insert(i, updated_entry)
             break
 
-    data_manager.write_table_to_file("accounting/items_test.csv", table)
+    return table
 
 
 # special functions:
@@ -151,7 +154,11 @@ def which_year_max(table):
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
-    given_year = int(year[0])
+    if type(year) is int:
+        given_year = year
+    else:
+        given_year = int(year[0])
+
     items_count_in_year = 0
     sum_profits = 0
 

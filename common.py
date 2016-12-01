@@ -21,6 +21,11 @@ def get_accounting_structure_elements():
     structure_elements = ["id", "month", "day", "year", "type", "amount"]
     return structure_elements
 
+def get_store_structure_elements():
+    structure_elements = ["id", "title", "manufacturer", "price", "in_stock"]
+    return structure_elements
+
+
 
 # generate and return a unique and random string
 # other expectation:

@@ -26,15 +26,14 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-
-    menu_elements = ["Show_table",
+     menu_elements = ["Show_table",
                      "Add",
                      "Remove",
                      "Update",
                      "Lowest price item",
                      "Items sold between"]
-    ui.print_menu("Selling", menu_elements, "Back to main menu")
-    choose()
+     ui.print_menu("Selling", menu_elements, "Back to main menu")
+     choose()
 
 def choose():
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -66,8 +65,9 @@ def choose():
 #
 # @table: list of lists
 def show_table(table):
-    title_list = ["id", "title", "price", "month", "day", "year"]
+    title_list = common.get_selling_structure_elements()
     ui.print_table(table, title_list)
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
