@@ -38,9 +38,9 @@ def choose():
     elif option == "4":
         data_manager.write_table_to_file("hr/export_hr.csv", update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
     elif option == "5":
-        get_available_tools(data_manager.get_table_from_file("hr/persons.csv"))
+        get_oldest_person(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "6":
-        get_average_durability_by_manufacturers(data_manager.get_table_from_file("hr/persons.csv"))
+        get_persons_closest_to_average(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "0":
         sys.exit(0)
     else:
@@ -102,22 +102,22 @@ def update(table, id_):
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
     data_manager.get_table_from_file("hr/persons.csv")
-    years = table[0][2]
-    oldest = table[0][1]
+    oldest = 999999
     for i in range(len(table)):
-        if int(table[i][2]) < int(years):
-            table[i][2] = years
-            table[i][1] = oldest
-        elif int(table[i][2]) == int(years):
-            result = oldest.append(table[i][1])
-    return result
-#    pass
+        if int(table[i][2]) < oldest:
+            oldest = int(table[i][2])
+    for i in table:
+        if int(i[2]) == oldest:
+            ui.print_result(i[1], "The oldest person is: ")
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
-###def get_persons_closest_to_average(table):
-
-    # your code
-
+def get_persons_closest_to_average(table):
+    average = 0
+    for item in table:
+        average += int(item[2])
+    average = average / len(table)
+#
+#
 #    pass
