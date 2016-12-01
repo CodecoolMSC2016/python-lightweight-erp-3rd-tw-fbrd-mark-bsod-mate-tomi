@@ -85,7 +85,7 @@ def add(table):
     new_entry.insert(0, ID)
     table.append(new_entry)
 
-    data_manager.write_table_to_file("store/games_test.csv", table)
+    data_manager.write_table_to_file("store/games.csv", table)
 
     return table
 
@@ -102,7 +102,7 @@ def remove(table, id_):
             table.remove(table[i])
             break
 
-    data_manager.write_table_to_file("store/games_test.csv", table)
+    data_manager.write_table_to_file("store/games.csv", table)
     return table
 
 
@@ -124,7 +124,7 @@ def update(table, id_):
             table.insert(i, updated_entry)
             break
 
-    data_manager.write_table_to_file("store/games_test.csv", table)
+    data_manager.write_table_to_file("store/games.csv", table)
     return table
 
 
