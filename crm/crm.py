@@ -121,10 +121,11 @@ def get_longest_name_id(table):
     longestsubscribename=0
     longestid=""
     for i in range(0, len(table)):
-        if (table[i][index_subscribe] == '1' and longestsubscribename<=len(table[i][index_name]):
+        if table[i][index_subscribe] == '1' and longestsubscribename<=len(table[i][index_name]):
             longestid=table[i][index_id]
             longestsubscribename=table[i][index_name]
             break
+    print(longestid)
     return longestid
     # your code
 
