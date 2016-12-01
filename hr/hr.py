@@ -40,20 +40,15 @@ def choose():
     if option == "1":
         show_table(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "2":
-        data_manager.write_table_to_file(
-            "hr/export_hr.csv", add(data_manager.get_table_from_file("hr/persons.csv")))
+        add(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "3":
-        data_manager.write_table_to_file("hr/export_hr.csv", remove(
-            data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
+        remove(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "4":
-        data_manager.write_table_to_file("hr/export_hr.csv", update(
-            data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter an ID: "], "")))
+        update(data_manager.get_table_from_file("hr/persons.csv"), ui.get_inputs(["Enter id"], ""))
     elif option == "5":
-        ui.print_result(get_oldest_person(data_manager.get_table_from_file(
-            "hr/persons.csv")), "The oldest person is/are: ")
+        get_oldest_person(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "6":
-        ui.print_result(get_persons_closest_to_average(
-            data_manager.get_table_from_file("hr/persons.csv")), "Closest to average: ")
+        get_persons_closest_to_average(data_manager.get_table_from_file("hr/persons.csv"))
     elif option == "0":
         pass
     else:
@@ -66,8 +61,7 @@ def choose():
 
 def show_table(table):
     structure_elements = common.get_hr_structure_elements()
-    ui.print_table(data_manager.get_table_from_file(
-        "hr/persons.csv"), structure_elements)
+    ui.print_table(table, structure_elements)
     start_module()
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -78,10 +72,10 @@ def show_table(table):
 def add(table):
     structure_elements = common.get_hr_structure_elements()
     ID = common.generate_random(table)
-    new_record = ui.get_inputs(structure_elements[1::], " ")
-    new_record.insert(0, ID)
-    table.append(new_record)
-
+    new_entry = ui.get_inputs(structure_elements[1::], " ")
+    new_entry.insert(0, ID)
+    table.append(new_entry)
+    data_manager.write_table_to_file("hr/persons_test.csv", table)
     return table
 # Remove the record having the id @id_ from the @list, than return @table
 #
@@ -91,11 +85,12 @@ def add(table):
 
 def remove(table, id_):
     index_id = 0
-    for i in range(len(table)):
-        if str(table[i][index_id]) == str(id_[index_id]):
+    for i in range(0, len(table)):
+        if table[i][index_id] == id_[index_id]:
             table.remove(table[i])
             break
 
+    data_manager.write_table_to_file("hr/persons_test.csv", table)
     return table
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -108,13 +103,15 @@ def remove(table, id_):
 def update(table, id_):
     index_id = 0
     structure_elements = common.get_hr_structure_elements()
-    for i in range(len(table)):
+    ID = common.generate_random(table)
+    for i in range(0, len(table)):
         if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
             update_entry = ui.get_inputs(structure_elements[1::], "")
-            update_entry.insert(0, id_[0])
+            update_entry.insert(0, ID)
             table.insert(i, update_entry)
             break
+    data_manager.write_table_to_file("hr/persons_test.csv", table)
     return table
 
 # special functions:
@@ -135,6 +132,7 @@ def get_oldest_person(table):
     for row in table:
         if int(row[YEARS]) == oldest:
             oldest_persons.append(row[NAMES])
+    ui.print_result(oldest_persons, "The oldest person is/are: ")
     return oldest_persons
 
 # the question: Who is the closest to the average age ?
@@ -161,5 +159,5 @@ def get_persons_closest_to_average(table):
 
     closest_names = []
     closest_names.append(table[min_diff][NAMES])
-
+    ui.print_result(closest_names, "Closest to average: ")
     return closest_names
