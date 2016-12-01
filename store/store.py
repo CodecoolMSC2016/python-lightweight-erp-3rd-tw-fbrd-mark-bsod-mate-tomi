@@ -134,7 +134,6 @@ def update(table, id_):
 # the question: How many different kinds of game are available of each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
 def get_counts_by_manufacturers(table):
-    GAME_NAME = 1
     PUBLISHER_NAME = 2
     game_repertoire = {}
 
