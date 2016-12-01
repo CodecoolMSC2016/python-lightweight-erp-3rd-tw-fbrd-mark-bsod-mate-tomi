@@ -74,8 +74,16 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
+    structure_elements = common.get_store_structure_elements()
+    ID = common.generate_random(table)
 
-    # your code
+    new_entry = ui.get_inputs(
+        structure_elements[1::], "Store - Add Entry")
+
+    new_entry.insert(0, ID)
+    table.append(new_entry)
+
+    data_manager.write_table_to_file("store/games_test.csv", table)
 
     return table
 
