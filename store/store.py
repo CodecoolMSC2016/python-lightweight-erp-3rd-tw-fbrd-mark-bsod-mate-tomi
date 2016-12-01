@@ -112,9 +112,10 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    ID = id_[0]
     index_id = 0
     structure_elements = common.get_store_structure_elements()
-    ID = common.generate_random(table)
+
     for i in range(0, len(table)):
         if (table[i][index_id] == id_[index_id]):
             table.remove(table[i])
@@ -124,7 +125,6 @@ def update(table, id_):
             break
 
     data_manager.write_table_to_file("store/games_test.csv", table)
-
     return table
 
 
