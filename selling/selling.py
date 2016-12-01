@@ -84,7 +84,7 @@ def add(table):
     table.append(new_entry)
 
     data_manager.write_table_to_file("selling/sellings_test.csv", table)
-
+    return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
@@ -141,6 +141,7 @@ def get_lowest_price_item_id(table):
     for i in table:
         if int(i[2]) == lowest_price:
             ui.print_result(i[0], "The id of item sold on lowest price")
+            return i[0]
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
@@ -154,10 +155,4 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
             filtered_table.append(i)
 
     ui.print_result(filtered_table, "items between dates")
-
-
-
-
-
-
-    pass
+    return filtered_table
