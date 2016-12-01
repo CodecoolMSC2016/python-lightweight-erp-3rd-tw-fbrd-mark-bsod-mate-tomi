@@ -67,6 +67,7 @@ def choose():
 def show_table(table):
     title_list = common.get_selling_structure_elements()
     ui.print_table(table, title_list)
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table

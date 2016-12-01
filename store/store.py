@@ -65,6 +65,7 @@ def choose():
 def show_table(table):
     title_list = common.get_store_structure_elements()
     ui.print_table(table, title_list)
+    start_module()
 
 
 
