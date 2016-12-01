@@ -30,7 +30,7 @@ def start_module():
                      "Add",
                      "Remove",
                      "Update",
-                     "Kind of games",
+                     "Games by manufacturers",
                      "Avarage amount of games in stock"]
     ui.print_menu("Store", menu_elements, "Back to main menu")
     choose()
@@ -140,8 +140,12 @@ def get_counts_by_manufacturers(table):
 
     for games in table:
         if games[PUBLISHER_NAME] not in game_repertoire:
-            pass
-    pass
+            game_repertoire.update({games[PUBLISHER_NAME]: 1})
+        else:
+            game_repertoire.update(
+                {games[PUBLISHER_NAME]: game_repertoire[games[PUBLISHER_NAME]] + 1})
+
+    return game_repertoire
 
 
 # the question: What is the average amount of games in stock of a given manufacturer?
