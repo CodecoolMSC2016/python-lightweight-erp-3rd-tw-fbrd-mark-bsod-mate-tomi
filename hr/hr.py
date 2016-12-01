@@ -120,6 +120,7 @@ def get_persons_closest_to_average(table):
     for item in table:
         average += int(item[2])
     average = average / len(table)
-#
+    YEARS =
+    NAMES =
 #
 #    pass
