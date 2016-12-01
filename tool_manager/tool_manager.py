@@ -106,6 +106,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    ID = id_[0]
     index_id = 0
     structure_elements = common.get_tool_manager_structure_elements()
 
