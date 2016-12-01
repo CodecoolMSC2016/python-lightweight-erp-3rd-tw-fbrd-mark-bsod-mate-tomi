@@ -53,7 +53,7 @@ def start_module():
 def show_table(table):
     title_list = ["id", "name", "email", "subscribed",]
     ui.print_table(table, title_list)
-    pass
+    start_module()
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
