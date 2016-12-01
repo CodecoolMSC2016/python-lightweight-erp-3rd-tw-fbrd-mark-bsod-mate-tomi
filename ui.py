@@ -28,8 +28,9 @@ def print_table(table, title_list):
 
     for k, v in dict_column_width.items():
         line_width += v + 2
-    line_width += 4
 
+    # Black Magic happens here
+    line_width += 4
     line_width -= 5 - (len(title_list))
 
     print("/" + "-" * line_width + "\ ")  # topline
